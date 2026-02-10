@@ -4,536 +4,376 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Godrej Aerospace – Internal Management System</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #0b3c5d;
-      --navy-mid: #184d72;
-      --bg: #eef0f2;
-      --panel: #f2f4f6;
-      --line: #cfd5da;
-      --text: #1f2f3f;
-      --muted: #6d7c89;
-      --danger: #c5352f;
-      --ok: #2a9a52;
+      --navy:#0B3C5D;
+      --navy-2:#154a70;
+      --bg:#eef1f4;
+      --panel:#f7f9fb;
+      --line:#cfd7df;
+      --text:#1e2e3e;
+      --muted:#6a7986;
+      --danger:#b63030;
+      --ok:#278a4a;
     }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Inter, Arial, sans-serif; background: var(--bg); color: var(--text); }
-    button, input, textarea, select { font: inherit; }
-    .hidden { display: none !important; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .hidden{display:none !important}
+    input,select,textarea,button{font:inherit}
+    button{cursor:pointer}
+    .btn{border:1px solid var(--navy);background:var(--navy);color:#fff;padding:10px 12px;font-weight:600}
+    .btn.secondary{background:#fff;border-color:var(--line);color:var(--text)}
+    .btn.danger{background:var(--danger);border-color:var(--danger)}
 
-    .login-screen { min-height: 100vh; display: grid; place-items: center; border-top: 2px solid #b89263; }
-    .login-shell { width: 460px; }
-    .godrej-mark { color: #92246b; font-size: 44px; font-weight: 700; text-align: center; margin-bottom: 12px; }
-    .login-title { text-align: center; margin-bottom: 28px; }
-    .login-title h1 { margin: 0; font-size: 42px; font-weight: 700; color: #223647; }
-    .login-title p { margin: 4px 0 0; color: var(--muted); font-size: 29px; }
-    .login-card { background: transparent; border: 1px solid var(--line); padding: 28px; }
-    label { display: block; font-size: 14px; margin-bottom: 8px; font-weight: 500; }
-    input, textarea, select { width: 100%; border: 1px solid var(--line); background: #fff; padding: 12px 14px; color: var(--text); }
-    .input-stack { display: grid; gap: 18px; }
-    .btn { border: 1px solid var(--navy); padding: 12px 14px; background: var(--navy); color: #fff; cursor: pointer; font-weight: 600; }
-    .btn.secondary { background: #f4f6f8; border-color: var(--line); color: var(--text); }
-    .btn.inline { width: auto; min-width: 120px; }
-    .hint { color: var(--muted); font-size: 13px; line-height: 1.45; border-top: 1px solid var(--line); margin-top: 16px; padding-top: 14px; }
+    .login{min-height:100vh;display:grid;place-items:center;border-top:2px solid #b78f5f}
+    .login-shell{width:460px}
+    .logo{text-align:center;color:#92246b;font-weight:700;font-size:42px;margin-bottom:8px}
+    .login-title{text-align:center;margin-bottom:22px}
+    .login-title h1{margin:0;font-size:32px;color:#1f3142}
+    .login-title p{margin:4px 0 0;color:var(--muted)}
+    .login-card{border:1px solid var(--line);padding:24px;background:transparent}
+    label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+    input,select,textarea{width:100%;border:1px solid var(--line);padding:10px 11px;background:#fff;color:var(--text)}
+    textarea{resize:vertical;min-height:78px}
+    .stack{display:grid;gap:14px}
+    .hint{font-size:12px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);line-height:1.5}
 
-    .app { display: grid; grid-template-columns: 270px 1fr; min-height: 100vh; border-top: 2px solid #b89263; }
-    .sidebar { background: var(--navy); color: #fff; display: flex; flex-direction: column; }
-    .brand { padding: 18px; border-bottom: 1px solid #2a5b7f; display: flex; align-items: center; gap: 12px; }
-    .brand-badge { border: 1px solid #d8dfe5; background: #fff; color: #92246b; font-weight: 700; padding: 7px 10px; }
-    .brand span { font-size: 30px; }
-    .nav { padding-top: 10px; }
-    .nav button { width: 100%; text-align: left; background: transparent; border: 0; color: #fff; padding: 14px 20px; font-size: 34px; border-bottom: 1px solid #1f4d6f; cursor: pointer; }
-    .nav button.active, .nav button:hover { background: #23577c; }
-    .sidebar-foot { margin-top: auto; border-top: 1px solid #2a5b7f; padding: 14px 20px; font-size: 13px; color: #d3dde7; }
+    .app{display:grid;grid-template-columns:255px 1fr;min-height:100vh;border-top:2px solid #b78f5f}
+    aside{background:var(--navy);color:#fff;display:flex;flex-direction:column}
+    .brand{padding:16px;border-bottom:1px solid #275879;display:flex;align-items:center;gap:10px}
+    .brand-badge{background:#fff;color:#92246b;border:1px solid #d5dde3;padding:6px 10px;font-weight:700}
+    .brand-text{font-size:24px}
+    .nav button{width:100%;text-align:left;border:0;background:transparent;color:#fff;padding:13px 18px;border-bottom:1px solid #1f4e6f;font-size:27px}
+    .nav button.active,.nav button:hover{background:var(--navy-2)}
+    .side-user{margin-top:auto;border-top:1px solid #2b5a7a;padding:12px 16px;font-size:12px;color:#d8e3ed;line-height:1.5}
 
-    .main { display: flex; flex-direction: column; }
-    .topbar { background: #fff; border-bottom: 1px solid var(--line); padding: 14px 26px; display: flex; justify-content: space-between; align-items: center; }
-    .topbar-title { font-size: 38px; font-weight: 500; }
-    .user { display: flex; align-items: center; gap: 18px; }
-    .user-meta { text-align: right; }
-    .user-meta strong { font-size: 30px; display: block; }
-    .pill { display: inline-block; border: 1px solid var(--line); background: #edf2f6; padding: 2px 10px; font-size: 20px; }
-    .badge { background: var(--danger); color: #fff; border: 1px solid var(--danger); padding: 1px 8px; font-size: 14px; }
+    main{display:flex;flex-direction:column}
+    header{background:#fff;border-bottom:1px solid var(--line);padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .header-title{font-size:31px;font-weight:500}
+    .header-right{display:flex;align-items:center;gap:10px}
+    .badge{background:var(--danger);color:#fff;font-size:12px;padding:2px 7px;border:1px solid var(--danger)}
+    .user-meta strong{display:block;font-size:18px}
+    .role-pill{display:inline-block;font-size:12px;padding:2px 8px;background:#edf2f6;border:1px solid var(--line)}
 
-    .content { padding: 22px 28px; }
-    .module-title { font-size: 52px; margin: 0 0 20px; }
-    .tabs { display: flex; gap: 36px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
-    .tabs button { border: 0; background: transparent; color: #536474; padding: 0 0 12px; font-size: 37px; cursor: pointer; border-bottom: 3px solid transparent; }
-    .tabs button.active { color: var(--navy); border-bottom-color: var(--navy); font-weight: 500; }
+    .content{padding:16px 20px}
+    .module-title{font-size:42px;margin:0 0 14px}
+    .tabs{display:flex;gap:24px;border-bottom:1px solid var(--line);margin-bottom:14px}
+    .tabs button{border:0;background:transparent;padding:0 0 10px;font-size:27px;color:#5d6e7d;border-bottom:3px solid transparent}
+    .tabs button.active{color:var(--navy);border-color:var(--navy)}
+    .panel{border:1px solid var(--line);background:var(--panel);padding:14px;margin-bottom:12px}
+    .panel h3{margin:0 0 12px;font-size:31px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 
-    .panel { border: 1px solid var(--line); background: var(--panel); padding: 20px; }
-    .panel h3 { margin: 0 0 18px; font-size: 42px; }
-    .grid-2, .grid-4 { display: grid; gap: 16px 18px; }
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .field label { margin-bottom: 6px; }
-    .rule { border-top: 1px solid var(--line); margin: 14px 0 16px; }
+    .toolbar{display:grid;grid-template-columns:220px 1fr 180px;gap:8px;margin-bottom:10px}
+    .table-wrap{border:1px solid var(--line);background:#fff;overflow:auto}
+    table{width:100%;border-collapse:collapse;min-width:1020px;font-size:15px}
+    th,td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:left}
+    th{background:#e4e9ee;color:#253748}
+    .stock{width:130px;height:10px;border:1px solid #d7dee5;background:#e7ebef}
+    .stock span{display:block;height:100%;background:var(--ok)}
+    .stock.low span{background:var(--danger)}
+    .low{color:var(--danger);font-weight:600}
+    .ok{color:var(--ok);font-weight:600}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+    .pagination{margin-top:8px;display:flex;justify-content:flex-end;gap:8px;align-items:center}
 
-    .toolbar { display: grid; grid-template-columns: 220px 240px 1fr; gap: 10px; margin-bottom: 12px; justify-content: end; }
-    .table-wrap { border: 1px solid var(--line); overflow: auto; background: #fff; }
-    table { width: 100%; border-collapse: collapse; min-width: 1150px; font-size: 26px; }
-    th, td { border-bottom: 1px solid var(--line); padding: 11px 12px; text-align: left; }
-    th { background: #e2e6ea; font-weight: 600; color: #223647; }
-    .stock { width: 150px; height: 12px; background: #e4e8ec; border: 1px solid #d6dde3; }
-    .stock > span { display: block; height: 100%; background: var(--ok); }
-    .stock.low > span { background: var(--danger); }
-    .status-low { color: var(--danger); font-weight: 600; }
-    .status-ok { color: var(--ok); font-weight: 600; }
-    .paging { display: flex; justify-content: flex-end; gap: 8px; align-items: center; margin-top: 10px; }
+    .modal{position:fixed;inset:0;background:rgba(9,21,31,.45);display:none;align-items:center;justify-content:center;padding:18px}
+    .modal.open{display:flex}
+    .modal-card{width:min(820px,100%);max-height:86vh;overflow:auto;background:#fff;border:1px solid var(--line);padding:14px}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 
-    .row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
-    .modal { position: fixed; inset: 0; background: rgba(10, 24, 37, 0.4); display: none; align-items: center; justify-content: center; padding: 18px; }
-    .modal.open { display: flex; }
-    .modal-card { width: min(900px, 100%); max-height: 85vh; overflow: auto; border: 1px solid var(--line); background: #fff; padding: 18px; }
-    .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-
-    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .metric { border: 1px solid var(--line); background: #fff; padding: 12px; }
-    .metric strong { display: block; margin-bottom: 6px; }
-
-    @media (max-width: 1400px) {
-      .topbar-title { font-size: 28px; }
-      .nav button { font-size: 28px; }
-      .module-title { font-size: 40px; }
-      .tabs button { font-size: 28px; }
-      table { font-size: 18px; }
-      .panel h3 { font-size: 32px; }
-      .user-meta strong { font-size: 24px; }
-      .pill { font-size: 16px; }
-      .brand span { font-size: 24px; }
-      .login-title h1 { font-size: 32px; }
-      .login-title p { font-size: 22px; }
-    }
+    .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .metric{border:1px solid var(--line);background:#fff;padding:10px}
+    .metric b{display:block;margin-bottom:4px}
   </style>
 </head>
 <body>
-  <section id="loginPage" class="login-screen">
-    <div class="login-shell">
-      <div class="godrej-mark">Godrej</div>
-      <div class="login-title">
-        <h1>Godrej Aerospace</h1>
-        <p>Internal Management System</p>
+<section class="login" id="loginPage">
+  <div class="login-shell">
+    <div class="logo">Godrej</div>
+    <div class="login-title">
+      <h1>Godrej Aerospace</h1>
+      <p>Internal Management System</p>
+    </div>
+    <div class="login-card">
+      <div class="stack">
+        <div><label>Company Email</label><input id="loginEmail" type="email" placeholder="name@godrej.com"></div>
+        <div><label>Password</label><input id="loginPassword" type="password" placeholder="••••••••"></div>
+        <button class="btn" id="loginBtn">Login</button>
       </div>
-      <div class="login-card">
-        <div class="input-stack">
-          <div>
-            <label>Company Email</label>
-            <input id="loginEmail" type="email" placeholder="name@godrej.com" />
-          </div>
-          <div>
-            <label>Password</label>
-            <input id="loginPassword" type="password" placeholder="••••••••" />
-          </div>
-          <button class="btn" id="loginBtn">Login</button>
-        </div>
-        <div class="hint">
-          Demo Credentials:<br>
-          admin@godrej.com / godrej123 (Priyabrat Pradhan)<br>
-          manager@godrej.com / godrej123<br>
-          operator@godrej.com / godrej123<br>
-          authority@godrej.com / godrej123 (High Authority)
-        </div>
+      <div class="hint">
+        admin@godrej.com / godrej123 (Priyabrat Pradhan)<br>
+        manager@godrej.com / godrej123<br>
+        operator@godrej.com / godrej123<br>
+        authority@godrej.com / godrej123 (High Authority)
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="appPage" class="app hidden">
-    <aside class="sidebar">
-      <div class="brand"><div class="brand-badge">Godrej</div><span>Aerospace</span></div>
-      <div class="nav">
-        <button class="nav-btn active" data-tab="inventory">Inventory</button>
-        <button class="nav-btn" data-tab="attendance">Attendance</button>
-        <button class="nav-btn" data-tab="work">Work Assignment</button>
-        <button class="nav-btn hidden" id="haTabBtn" data-tab="highAuthority">High Authority Panel</button>
+<section class="app hidden" id="appPage">
+  <aside>
+    <div class="brand"><div class="brand-badge">Godrej</div><div class="brand-text">Aerospace</div></div>
+    <div class="nav">
+      <button class="nav-btn active" data-tab="inventory">Inventory</button>
+      <button class="nav-btn" data-tab="attendance">Attendance</button>
+      <button class="nav-btn" data-tab="work">Work Assignment</button>
+      <button class="nav-btn hidden" data-tab="highAuthority" id="haNavBtn">High Authority Panel</button>
+    </div>
+    <div class="side-user" id="sideUser"></div>
+  </aside>
+  <main>
+    <header>
+      <div class="header-title">Godrej Aerospace – Internal Management System</div>
+      <div class="header-right">
+        <button class="btn secondary" id="notifBtn">Notifications</button>
+        <span id="notifBadge" class="badge">0</span>
+        <div class="user-meta"><strong id="userName"></strong><span class="role-pill" id="userRole"></span></div>
+        <button class="btn secondary" id="logoutBtn">Logout</button>
       </div>
-      <div id="sidebarUser" class="sidebar-foot"></div>
-    </aside>
+    </header>
 
-    <main class="main">
-      <header class="topbar">
-        <div class="topbar-title">Godrej Aerospace – Internal Management System</div>
-        <div class="user">
-          <button class="btn secondary inline" id="openNotifications">Notifications</button>
-          <span class="badge" id="unreadBadge">0</span>
-          <div class="user-meta"><strong id="userName"></strong><span class="pill" id="userRole"></span></div>
-          <button class="btn secondary inline" id="logoutBtn">Logout</button>
+    <div class="content">
+      <section id="inventory" class="module">
+        <h2 class="module-title">Inventory Module</h2>
+        <div class="tabs"><button class="active">Inventory Stock</button><button>Add Material</button></div>
+        <div class="panel">
+          <h3>Stock Overview</h3>
+          <div class="toolbar">
+            <select id="invFilter"><option value="all">All Status</option><option value="In Stock">In Stock</option><option value="Low Stock">Low Stock</option></select>
+            <input id="invSearch" placeholder="Search by code / machine / description / vendor">
+            <input id="invDate" type="date">
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Item Code</th><th>Description</th><th>Machine</th><th>Location</th><th>Qty</th><th>Min Qty</th><th>Vendor</th><th>Stock Level</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination"><button class="btn secondary" id="invPrev">Previous</button><span id="invPageInfo"></span><button class="btn secondary" id="invNext">Next</button></div>
         </div>
-      </header>
 
-      <div class="content">
-        <section id="inventory" class="module">
-          <h2 class="module-title">Inventory Module</h2>
-          <div class="tabs">
-            <button class="active">Inventory Stock</button>
-            <button>Add Material</button>
+        <div class="panel">
+          <h3>Add New Material</h3>
+          <form id="materialForm" class="grid-2"></form>
+        </div>
+
+        <div class="panel" id="usageLogPanel">
+          <h3>Usage Logs (Manager & High Authority)</h3>
+          <div class="row"><input id="usageDate" type="date"><button class="btn secondary" type="button" id="usageFilterBtn">Filter by date</button><button class="btn secondary" type="button" id="usageExportBtn">Export to Excel (CSV)</button></div>
+          <div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Operator Name</th><th>Item Code</th><th>Date</th><th>Purpose</th></tr></thead><tbody id="usageBody"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="attendance" class="module hidden">
+        <h2 class="module-title">Attendance Module</h2>
+        <div class="panel"><h3>Employee Registration</h3><form id="employeeForm" class="grid-2"></form></div>
+        <div class="panel"><h3>Leave Application</h3><form id="leaveForm" class="grid-2"></form></div>
+        <div class="panel"><h3>Leave Approval Panel</h3><div id="leaveAccessHint" class="hint">Visible only for Admin and High Authority.</div><div id="leaveTableWrap" class="table-wrap"><table><thead><tr><th>Employee Name</th><th>Leave Start Date</th><th>Leave End Date</th><th>Reason</th><th>Status</th><th>Approve</th><th>Reject</th></tr></thead><tbody id="leaveBody"></tbody></table></div></div>
+      </section>
+
+      <section id="work" class="module hidden">
+        <h2 class="module-title">Work Assignment Module</h2>
+        <div class="panel"><h3>Section A – New Assignment (Daily Job Creation)</h3><div class="row"><div style="min-width:320px;flex:1"><label>New Job Title</label><input id="newJobTitle"></div><button class="btn" type="button" id="addJobBtn">Add Job</button></div></div>
+        <div class="panel"><h3>Section B – Work Grid</h3><form id="workForm"></form></div>
+        <div class="panel"><h3>Work Assignment History</h3><div class="row"><input id="workEmpFilter" placeholder="Filter by employee"><input id="workDateFilter" type="date"><button class="btn secondary" type="button" id="workFilterBtn">Apply Filters</button></div><div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Employee Name</th><th>Date</th><th>Hour (H1–H8)</th><th>Assigned Job Title</th></tr></thead><tbody id="workHistoryBody"></tbody></table></div></div>
+      </section>
+
+      <section id="highAuthority" class="module hidden">
+        <h2 class="module-title">High Authority Panel</h2>
+        <div class="panel">
+          <h3>Master Control</h3>
+          <div class="metrics">
+            <div class="metric"><b>Total Materials</b><span id="m1">0</span></div>
+            <div class="metric"><b>Total Usage Logs</b><span id="m2">0</span></div>
+            <div class="metric"><b>Leave Requests</b><span id="m3">0</span></div>
+            <div class="metric"><b>Work Records</b><span id="m4">0</span></div>
           </div>
+          <div class="row" style="margin-top:10px"><button class="btn secondary" id="expInv" type="button">Export Inventory</button><button class="btn secondary" id="expLeave" type="button">Export Leave Logs</button><button class="btn secondary" id="expWork" type="button">Export Work Logs</button></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</section>
 
-          <div class="panel">
-            <h3>Stock Overview</h3>
-            <div class="toolbar">
-              <select id="invFilter"><option value="all">All Status</option><option>In Stock</option><option>Low Stock</option></select>
-              <input id="invSearch" placeholder="Search..." />
-              <input id="invDate" type="date" />
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Item Code</th><th>Description</th><th>Machine</th><th>Location</th><th>Qty</th><th>Min Qty</th><th>Vendor</th><th>Stock Level</th><th>Status</th><th>Action</th></tr></thead>
-                <tbody id="inventoryBody"></tbody>
-              </table>
-            </div>
-            <div class="paging">
-              <button class="btn secondary inline" id="prevPage" type="button">Previous</button>
-              <span id="pageInfo"></span>
-              <button class="btn secondary inline" id="nextPage" type="button">Next</button>
-            </div>
-          </div>
+<div class="modal" id="useModal"><div class="modal-card"><div class="modal-head"><b>Inventory Usage Submission</b><button class="btn secondary" id="closeUseModal">Close</button></div><div id="useModalBody"></div></div></div>
+<div class="modal" id="notifModal"><div class="modal-card"><div class="modal-head"><b>Notifications</b><button class="btn secondary" id="closeNotifModal">Close</button></div><div class="row"><input id="notifDate" type="date"><button class="btn secondary" id="notifFilterBtn">Filter by date</button><button class="btn secondary" id="notifMarkRead">Mark all as read</button></div><div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Date</th><th>Detail</th><th>Status</th></tr></thead><tbody id="notifBody"></tbody></table></div></div></div>
 
-          <div class="panel" style="margin-top:16px">
-            <h3>Add New Material</h3>
-            <form id="materialForm" class="grid-2"></form>
-          </div>
+<script>
+const users={
+  'admin@godrej.com':{password:'godrej123',name:'Priyabrat Pradhan',role:'admin',designation:'Admin'},
+  'manager@godrej.com':{password:'godrej123',name:'Neha Kulkarni',role:'manager',designation:'Manager'},
+  'operator@godrej.com':{password:'godrej123',name:'Rakesh Singh',role:'operator',designation:'Operator'},
+  'authority@godrej.com':{password:'godrej123',name:'Arvind Mehta',role:'highAuthority',designation:'High Authority'}
+};
 
-          <div class="panel" id="usagePanel" style="margin-top:16px">
-            <h3>Usage Logs (Manager & High Authority)</h3>
-            <div class="row">
-              <input id="usageDate" type="date" style="max-width:220px" />
-              <button class="btn secondary inline" type="button" id="usageFilterBtn">Filter by Date</button>
-              <button class="btn secondary inline" type="button" id="exportUsage">Export to Excel (CSV)</button>
-            </div>
-            <div class="table-wrap" style="margin-top:10px">
-              <table><thead><tr><th>Operator Name</th><th>Item Code</th><th>Date</th><th>Purpose</th></tr></thead><tbody id="usageLogsBody"></tbody></table>
-            </div>
-            <div id="usageHint" class="hint">Usage logs visible only to Manager and High Authority.</div>
-          </div>
-        </section>
+const defaults={inventory:[],usageLogs:[],employees:[],leaves:[],jobsByDay:{},workHistory:[],notifications:[]};
+const db=JSON.parse(localStorage.getItem('godrejIMS')||'null')||structuredClone(defaults);
+const state={currentUser:null,invPage:1,pageSize:8};
+const save=()=>localStorage.setItem('godrejIMS',JSON.stringify(db));
+const nowInput=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)};
+const today=()=>new Date().toISOString().slice(0,10);
+const statusOf=i=>Number(i.quantity)>Number(i.minimumQty)?'In Stock':'Low Stock';
 
-        <section id="attendance" class="module hidden">
-          <h2 class="module-title">Attendance Module</h2>
-          <div class="tabs">
-            <button class="active">Employee Registration</button>
-            <button>Leave Application</button>
-            <button>Leave Approval</button>
-          </div>
+function buildForms(){
+  const fields=[['itemCode','Item Code'],['description','Description'],['machineName','Machine Name'],['cupboard','Location – Cupboard Number'],['rack','Location – Rack Number'],['quantity','Quantity','number'],['minimumQty','Minimum Required Quantity','number'],['dateTime','Date & Time (auto)','datetime-local',true],['vendorName','Vendor Name'],['vendorContact','Vendor Contact Number'],['vendorEmail','Vendor Email','email'],['vendorAddress','Vendor Address']];
+  const mf=document.getElementById('materialForm');
+  mf.innerHTML=fields.map(([k,l,t='text',ro])=>`<div><label>${l}</label>${k==='vendorAddress'?`<textarea name='${k}' required></textarea>`:`<input name='${k}' type='${t}' ${ro?'readonly':''} ${k==='dateTime'?`value='${nowInput()}'`:''} required>`}</div>`).join('')+"<div style='grid-column:1/-1'><button class='btn'>Submit Material</button></div>";
+  document.getElementById('employeeForm').innerHTML="<div><label>Employee Name</label><input name='name' required></div><div><label>Role (Manual Input Field)</label><input name='role' required></div><div style='grid-column:1/-1'><button class='btn'>Register Employee</button></div>";
+  document.getElementById('leaveForm').innerHTML="<div><label>Employee Name</label><input name='name' required></div><div><label>Leave Start Date</label><input type='date' name='start' required></div><div><label>Leave End Date</label><input type='date' name='end' required></div><div><label>Reason</label><input name='reason' required></div><div style='grid-column:1/-1'><button class='btn'>Submit Leave Application</button></div>";
+  document.getElementById('workForm').innerHTML=`<div class='grid-2'><div><label>Employee Name</label><input name='employee' required></div><div><label>Date</label><input type='date' name='date' value='${today()}' required></div>${Array.from({length:8}).map((_,i)=>`<div><label>H${i+1} – Job Title Dropdown</label><select name='H${i+1}'></select></div>`).join('')}</div><div style='margin-top:10px'><button class='btn'>Save Hourly Assignment</button></div>`;
+}
 
-          <div class="panel">
-            <h3>Employee Registration</h3>
-            <form id="empForm" class="grid-2"></form>
-          </div>
+function addNotification(text,roles=['admin','highAuthority']){db.notifications.unshift({id:crypto.randomUUID(),text,date:new Date().toISOString(),roles,readBy:[]});save();renderNotifications();}
+function renderNotifications(){
+  if(!state.currentUser) return;
+  const role=state.currentUser.role;
+  const fd=document.getElementById('notifDate').value;
+  const items=db.notifications.filter(n=>n.roles.includes(role));
+  document.getElementById('notifBadge').textContent=items.filter(n=>!n.readBy.includes(role)).length;
+  const list=fd?items.filter(n=>n.date.startsWith(fd)):items;
+  document.getElementById('notifBody').innerHTML=list.map(n=>`<tr><td>${n.date.slice(0,16).replace('T',' ')}</td><td>${n.text}</td><td>${n.readBy.includes(role)?'Read':'Unread'}</td></tr>`).join('')||"<tr><td colspan='3'>No notifications</td></tr>";
+}
 
-          <div class="panel" style="margin-top:16px">
-            <h3>Leave Application</h3>
-            <form id="leaveForm" class="grid-2"></form>
-          </div>
+function filteredInventory(){
+  const q=document.getElementById('invSearch').value.toLowerCase().trim();
+  const f=document.getElementById('invFilter').value;
+  const d=document.getElementById('invDate').value;
+  return db.inventory.filter(i=>{
+    const match=[i.itemCode,i.description,i.machineName,i.vendorName].join(' ').toLowerCase();
+    return (!q||match.includes(q))&&(f==='all'||statusOf(i)===f)&&(!d||i.dateTime.startsWith(d));
+  });
+}
 
-          <div class="panel" style="margin-top:16px">
-            <h3>Leave Approval Panel</h3>
-            <div id="leaveApprovalWrap" class="table-wrap">
-              <table><thead><tr><th>Employee Name</th><th>Leave Start Date</th><th>Leave End Date</th><th>Reason</th><th>Status</th><th>Approve</th><th>Reject</th></tr></thead><tbody id="leaveBody"></tbody></table>
-            </div>
-            <div id="leaveApprovalHint" class="hint">Visible only to Admin and High Authority.</div>
-          </div>
-        </section>
+function renderInventory(){
+  const list=filteredInventory();
+  const pages=Math.max(1,Math.ceil(list.length/state.pageSize));
+  if(state.invPage>pages)state.invPage=pages;
+  const rows=list.slice((state.invPage-1)*state.pageSize,state.invPage*state.pageSize);
+  const canUse=['operator','manager','highAuthority'].includes(state.currentUser.role);
+  document.getElementById('inventoryBody').innerHTML=rows.map(i=>{
+    const st=statusOf(i);const p=Math.max(5,Math.min(100,(Number(i.quantity)/Math.max(1,Number(i.minimumQty)))*45));
+    return `<tr><td>${i.itemCode}</td><td>${i.description}</td><td>${i.machineName}</td><td>C${i.cupboard}-R${i.rack}</td><td>${i.quantity}</td><td>${i.minimumQty}</td><td>${i.vendorName}</td><td><div class='stock ${st==='Low Stock'?'low':''}'><span style='width:${p}%'></span></div></td><td class='${st==='Low Stock'?'low':'ok'}'>${st}</td><td>${canUse?`<button class='btn secondary' data-use='${i.id}'>Use</button>`:'-'}</td></tr>`;
+  }).join('')||"<tr><td colspan='10'>No materials found</td></tr>";
+  document.getElementById('invPageInfo').textContent=`Page ${state.invPage} of ${pages}`;
+  document.querySelectorAll('[data-use]').forEach(b=>b.onclick=()=>openUseModal(b.dataset.use));
+  refreshMetrics();
+}
 
-        <section id="work" class="module hidden">
-          <h2 class="module-title">Work Assignment Module</h2>
-          <div class="panel">
-            <h3>Section A – New Assignment (Daily Job Creation)</h3>
-            <div class="row">
-              <div style="min-width:420px;flex:1"><label>New Job Title</label><input id="jobTitle" /></div>
-              <button id="addJobBtn" type="button" class="btn inline">Add Job</button>
-            </div>
-          </div>
+function openUseModal(id){
+  const item=db.inventory.find(i=>i.id===id); if(!item) return;
+  document.getElementById('useModalBody').innerHTML=`<div class='grid-2'><div><label>Item Code</label><input readonly value='${item.itemCode}'></div><div><label>Description</label><input readonly value='${item.description}'></div><div><label>Machine Name</label><input readonly value='${item.machineName}'></div><div><label>Location</label><input readonly value='Cupboard ${item.cupboard}, Rack ${item.rack}'></div><div><label>Vendor Name</label><input readonly value='${item.vendorName}'></div><div><label>Quantity</label><input readonly value='${item.quantity}'></div><div><label>Operator Name</label><input id='opName'></div><div><label>Purpose</label><textarea id='opPurpose'></textarea></div></div><div style='margin-top:10px'><button class='btn' id='submitUsageBtn'>Submit Usage</button></div>`;
+  document.getElementById('useModal').classList.add('open');
+  document.getElementById('submitUsageBtn').onclick=()=>{
+    const operator=document.getElementById('opName').value.trim();
+    const purpose=document.getElementById('opPurpose').value.trim();
+    if(!operator||!purpose)return alert('Operator Name and Purpose are required.');
+    db.usageLogs.unshift({operator,itemCode:item.itemCode,date:new Date().toISOString(),purpose}); save();
+    addNotification(`Inventory usage submitted: ${item.itemCode} by ${operator}.`);
+    document.getElementById('useModal').classList.remove('open');
+    renderUsage();
+  };
+}
 
-          <div class="panel" style="margin-top:16px">
-            <h3>Section B – Work Grid</h3>
-            <form id="workForm"></form>
-          </div>
+function renderUsage(){
+  const dt=document.getElementById('usageDate').value;
+  const rows=dt?db.usageLogs.filter(x=>x.date.startsWith(dt)):db.usageLogs;
+  document.getElementById('usageBody').innerHTML=rows.map(r=>`<tr><td>${r.operator}</td><td>${r.itemCode}</td><td>${r.date.slice(0,16).replace('T',' ')}</td><td>${r.purpose}</td></tr>`).join('')||"<tr><td colspan='4'>No usage logs</td></tr>";
+  refreshMetrics();
+}
 
-          <div class="panel" style="margin-top:16px">
-            <h3>Work Assignment History</h3>
-            <div class="row">
-              <input id="workFilterEmployee" placeholder="Filter by employee" style="max-width:260px" />
-              <input id="workFilterDate" type="date" style="max-width:220px" />
-              <button class="btn secondary inline" id="workFilterBtn" type="button">Apply Filters</button>
-            </div>
-            <div class="table-wrap" style="margin-top:10px"><table><thead><tr><th>Employee Name</th><th>Date</th><th>Hour (H1–H8)</th><th>Assigned Job Title</th></tr></thead><tbody id="workHistoryBody"></tbody></table></div>
-          </div>
-        </section>
+function renderLeaves(){
+  document.getElementById('leaveBody').innerHTML=db.leaves.map(l=>`<tr><td>${l.name}</td><td>${l.start}</td><td>${l.end}</td><td>${l.reason}</td><td class='${l.status==='Rejected'?'low':''}'>${l.status}</td><td><button class='btn secondary' data-approve='${l.id}'>Approve</button></td><td><button class='btn danger' data-reject='${l.id}'>Reject</button></td></tr>`).join('')||"<tr><td colspan='7'>No leave applications</td></tr>";
+  document.querySelectorAll('[data-approve]').forEach(b=>b.onclick=()=>setLeave(b.dataset.approve,'Approved'));
+  document.querySelectorAll('[data-reject]').forEach(b=>b.onclick=()=>setLeave(b.dataset.reject,'Rejected'));
+  refreshMetrics();
+}
+function setLeave(id,status){const l=db.leaves.find(x=>x.id===id);if(!l)return;l.status=status;save();addNotification(`Leave ${status.toLowerCase()}: ${l.name} (${l.start} to ${l.end}).`);renderLeaves();}
 
-        <section id="highAuthority" class="module hidden">
-          <h2 class="module-title">High Authority Panel</h2>
-          <div class="panel">
-            <h3>Master Control Panel</h3>
-            <div class="metrics">
-              <div class="metric"><strong>Total Materials</strong><span id="haMaterials">0</span></div>
-              <div class="metric"><strong>Total Usage Logs</strong><span id="haUsage">0</span></div>
-              <div class="metric"><strong>Leave Requests</strong><span id="haLeaves">0</span></div>
-              <div class="metric"><strong>Work Records</strong><span id="haWork">0</span></div>
-            </div>
-            <div class="row" style="margin-top:12px">
-              <button class="btn secondary inline" id="haExportInventory" type="button">Export Inventory</button>
-              <button class="btn secondary inline" id="haExportLeaves" type="button">Export Leave Logs</button>
-              <button class="btn secondary inline" id="haExportWork" type="button">Export Work Logs</button>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  </section>
+function refillJobs(){
+  const jobs=db.jobsByDay[today()]||[];
+  document.querySelectorAll('#workForm select').forEach(s=>{const cur=s.value;s.innerHTML="<option value=''>Select job</option>"+jobs.map(j=>`<option ${cur===j?'selected':''}>${j}</option>`).join('');});
+}
+function renderWorkHistory(){
+  const ef=document.getElementById('workEmpFilter').value.toLowerCase().trim();
+  const df=document.getElementById('workDateFilter').value;
+  const rows=db.workHistory.filter(r=>(!ef||r.employee.toLowerCase().includes(ef))&&(!df||r.date===df));
+  document.getElementById('workHistoryBody').innerHTML=rows.map(r=>`<tr><td>${r.employee}</td><td>${r.date}</td><td>${r.hour}</td><td>${r.job}</td></tr>`).join('')||"<tr><td colspan='4'>No history records</td></tr>";
+  refreshMetrics();
+}
 
-  <div id="usageModal" class="modal"><div class="modal-card"><div class="modal-head"><strong>Inventory Usage Submission</strong><button class="btn secondary inline" id="closeUsageModal" type="button">Close</button></div><div id="usageDetails"></div></div></div>
-  <div id="notificationModal" class="modal"><div class="modal-card"><div class="modal-head"><strong>Notifications</strong><button class="btn secondary inline" id="closeNotifModal" type="button">Close</button></div><div class="row"><input id="notifDate" type="date" style="max-width:220px" /><button class="btn secondary inline" id="notifFilterBtn" type="button">Filter by date</button><button class="btn secondary inline" id="markRead" type="button">Mark all as read</button></div><div class="table-wrap" style="margin-top:10px"><table><thead><tr><th>Date</th><th>Detail</th><th>Status</th></tr></thead><tbody id="notifBody"></tbody></table></div></div></div>
+function refreshMetrics(){
+  document.getElementById('m1').textContent=db.inventory.length;
+  document.getElementById('m2').textContent=db.usageLogs.length;
+  document.getElementById('m3').textContent=db.leaves.length;
+  document.getElementById('m4').textContent=db.workHistory.length;
+}
 
-  <script>
-    const users = {
-      'admin@godrej.com': { password: 'godrej123', name: 'Priyabrat Pradhan', role: 'admin', designation: 'Admin' },
-      'manager@godrej.com': { password: 'godrej123', name: 'Neha Kulkarni', role: 'manager', designation: 'Manager' },
-      'operator@godrej.com': { password: 'godrej123', name: 'Rakesh Singh', role: 'operator', designation: 'Operator' },
-      'authority@godrej.com': { password: 'godrej123', name: 'Arvind Mehta', role: 'highAuthority', designation: 'High Authority' },
-    };
+function applyAccess(){
+  const r=state.currentUser.role;const admin=r==='admin';const manager=r==='manager';const ha=r==='highAuthority';
+  document.querySelector('#materialForm button').disabled=!admin;
+  document.querySelectorAll('#materialForm input,#materialForm textarea').forEach(el=>{if(el.name!=='dateTime')el.disabled=!admin;});
+  document.getElementById('usageLogPanel').classList.toggle('hidden',!(manager||ha));
+  document.getElementById('haNavBtn').classList.toggle('hidden',!ha);
+  document.getElementById('leaveTableWrap').classList.toggle('hidden',!(admin||ha));
+  document.getElementById('leaveAccessHint').classList.toggle('hidden',admin||ha);
+}
 
-    const state = { currentUser: null, inventory: [], usageLogs: [], employees: [], leaves: [], jobsByDay: {}, workRecords: [], notifications: [], invPage: 1, invPageSize: 8, invFiltered: [] };
+function openTab(tab){document.querySelectorAll('.module').forEach(m=>m.classList.add('hidden'));document.getElementById(tab).classList.remove('hidden');document.querySelectorAll('.nav-btn').forEach(n=>n.classList.toggle('active',n.dataset.tab===tab));}
+function exportCSV(name,rows){const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=name;a.click();}
 
-    const inventoryFields = [
-      ['itemCode', 'Item Code'], ['description', 'Description'], ['machineName', 'Machine Name'], ['cupboard', 'Cupboard No.'], ['rack', 'Rack No.'], ['quantity', 'Quantity', 'number'], ['minimumQty', 'Minimum Required Quantity', 'number'], ['dateTime', 'Date & Time', 'datetime-local', true],
-      ['vendorName', 'Vendor Name'], ['vendorContact', 'Vendor Contact Number'], ['vendorEmail', 'Vendor Email', 'email'], ['vendorAddress', 'Vendor Address']
-    ];
+function wire(){
+  document.getElementById('loginBtn').onclick=()=>{
+    const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pass=document.getElementById('loginPassword').value;
+    const user=users[email];
+    if(!user||user.password!==pass)return alert('Invalid credentials');
+    state.currentUser={email,...user};
+    document.getElementById('loginPage').classList.add('hidden');
+    document.getElementById('appPage').classList.remove('hidden');
+    document.getElementById('userName').textContent=user.name;
+    document.getElementById('userRole').textContent=user.designation;
+    document.getElementById('sideUser').innerHTML=`${user.name}<br>${user.designation}<br>${email}`;
+    applyAccess();
+    openTab('inventory');
+    renderInventory();renderUsage();renderLeaves();refillJobs();renderWorkHistory();renderNotifications();
+  };
 
-    function nowISODateTime() {
-      const n = new Date();
-      n.setMinutes(n.getMinutes() - n.getTimezoneOffset());
-      return n.toISOString().slice(0,16);
-    }
+  document.getElementById('logoutBtn').onclick=()=>location.reload();
+  document.querySelectorAll('.nav-btn').forEach(b=>b.onclick=()=>openTab(b.dataset.tab));
 
-    function buildForms() {
-      const mf = document.getElementById('materialForm');
-      mf.innerHTML = inventoryFields.map(([key,label,type='text',ro]) => `<div class="field"><label>${label}</label>${key==='vendorAddress' ? `<textarea name="${key}" required></textarea>` : `<input name="${key}" ${ro?'readonly':''} type="${type}" ${key==='dateTime'?`value="${nowISODateTime()}"`:''} required />`}</div>`).join('');
-      mf.innerHTML += '<div style="grid-column:1/-1" class="rule"></div><div style="grid-column:1/-1"><button class="btn inline">Submit Material</button></div>';
+  document.getElementById('materialForm').onsubmit=e=>{e.preventDefault();if(state.currentUser.role!=='admin')return;const data=Object.fromEntries(new FormData(e.target).entries());db.inventory.unshift({id:crypto.randomUUID(),...data});save();e.target.reset();e.target.querySelector("[name='dateTime']").value=nowInput();renderInventory();};
+  ['invSearch','invFilter','invDate'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{state.invPage=1;renderInventory();}));
+  document.getElementById('invPrev').onclick=()=>{state.invPage=Math.max(1,state.invPage-1);renderInventory();};
+  document.getElementById('invNext').onclick=()=>{const pages=Math.max(1,Math.ceil(filteredInventory().length/state.pageSize));state.invPage=Math.min(pages,state.invPage+1);renderInventory();};
 
-      document.getElementById('empForm').innerHTML = '<div class="field"><label>Employee Name</label><input name="name" required></div><div class="field"><label>Role (Manual Input Field)</label><input name="role" required></div><div style="grid-column:1/-1"><button class="btn inline">Register Employee</button></div>';
-      document.getElementById('leaveForm').innerHTML = '<div class="field"><label>Employee Name</label><input name="name" required></div><div class="field"><label>Leave Start Date</label><input type="date" name="start" required></div><div class="field"><label>Leave End Date</label><input type="date" name="end" required></div><div class="field"><label>Reason</label><input name="reason" required></div><div style="grid-column:1/-1"><button class="btn inline">Submit Leave Application</button></div>';
+  document.getElementById('usageFilterBtn').onclick=renderUsage;
+  document.getElementById('usageExportBtn').onclick=()=>exportCSV('usage-logs.csv',[['Operator Name','Item Code','Date','Purpose'],...db.usageLogs.map(r=>[r.operator,r.itemCode,r.date,r.purpose])]);
 
-      document.getElementById('workForm').innerHTML = `<div class="grid-2"><div class="field"><label>Employee Name</label><input name="employee" required /></div><div class="field"><label>Date</label><input type="date" name="date" value="${new Date().toISOString().slice(0,10)}" required /></div>${Array.from({length:8}).map((_,i)=>`<div class="field"><label>H${i+1} – Job Title Dropdown</label><select name="H${i+1}"></select></div>`).join('')}</div><div style="margin-top:10px"><button class="btn inline">Save Hourly Assignment</button></div>`;
-    }
+  document.getElementById('employeeForm').onsubmit=e=>{e.preventDefault();db.employees.push(Object.fromEntries(new FormData(e.target).entries()));save();e.target.reset();};
+  document.getElementById('leaveForm').onsubmit=e=>{e.preventDefault();const leave={id:crypto.randomUUID(),...Object.fromEntries(new FormData(e.target).entries()),status:'Pending'};db.leaves.unshift(leave);save();addNotification(`Leave application submitted by ${leave.name} (${leave.start} to ${leave.end}).`);e.target.reset();renderLeaves();};
 
-    const statusOf = i => Number(i.quantity) > Number(i.minimumQty) ? 'In Stock' : 'Low Stock';
-    function addNotification(text, roles=['admin','highAuthority']) { state.notifications.unshift({ id: crypto.randomUUID(), text, date: new Date().toISOString(), readBy: [], roles }); renderNotifications(); }
+  document.getElementById('addJobBtn').onclick=()=>{const title=document.getElementById('newJobTitle').value.trim();if(!title)return;const k=today();if(!db.jobsByDay[k])db.jobsByDay[k]=[];if(!db.jobsByDay[k].includes(title))db.jobsByDay[k].push(title);save();document.getElementById('newJobTitle').value='';refillJobs();addNotification(`New work assignment title created for ${k}: ${title}.`);};
+  document.getElementById('workForm').onsubmit=e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());for(let i=1;i<=8;i++){const h='H'+i;if(data[h])db.workHistory.unshift({employee:data.employee,date:data.date,hour:h,job:data[h]});}save();renderWorkHistory();};
+  document.getElementById('workFilterBtn').onclick=renderWorkHistory;
 
-    function renderNotifications() {
-      const role = state.currentUser?.role;
-      const items = state.notifications.filter(n => n.roles.includes(role));
-      document.getElementById('unreadBadge').textContent = items.filter(n => !n.readBy.includes(role)).length;
-      const fd = document.getElementById('notifDate').value;
-      const list = fd ? items.filter(n => n.date.startsWith(fd)) : items;
-      document.getElementById('notifBody').innerHTML = list.map(n => `<tr><td>${n.date.slice(0,16).replace('T',' ')}</td><td>${n.text}</td><td>${n.readBy.includes(role)?'Read':'Unread'}</td></tr>`).join('') || '<tr><td colspan="3">No notifications</td></tr>';
-    }
+  document.getElementById('notifBtn').onclick=()=>{document.getElementById('notifModal').classList.add('open');renderNotifications();};
+  document.getElementById('closeNotifModal').onclick=()=>document.getElementById('notifModal').classList.remove('open');
+  document.getElementById('notifFilterBtn').onclick=renderNotifications;
+  document.getElementById('notifMarkRead').onclick=()=>{const r=state.currentUser.role;db.notifications.forEach(n=>{if(n.roles.includes(r)&&!n.readBy.includes(r))n.readBy.push(r)});save();renderNotifications();};
 
-    function filteredInventory() {
-      const q = document.getElementById('invSearch').value.toLowerCase().trim();
-      const f = document.getElementById('invFilter').value;
-      const d = document.getElementById('invDate').value;
-      return state.inventory.filter(i => {
-        const m = `${i.itemCode} ${i.machineName} ${i.description} ${i.vendorName}`.toLowerCase();
-        return (!q || m.includes(q)) && (f==='all' || statusOf(i)===f) && (!d || i.dateTime.startsWith(d));
-      });
-    }
+  document.getElementById('closeUseModal').onclick=()=>document.getElementById('useModal').classList.remove('open');
 
-    function renderInventory() {
-      state.invFiltered = filteredInventory();
-      const pages = Math.max(1, Math.ceil(state.invFiltered.length / state.invPageSize));
-      if (state.invPage > pages) state.invPage = pages;
-      const start = (state.invPage - 1) * state.invPageSize;
-      const rows = state.invFiltered.slice(start, start + state.invPageSize);
-      const canUse = ['operator','manager','highAuthority'].includes(state.currentUser.role);
+  document.getElementById('expInv').onclick=()=>exportCSV('inventory.csv',[['Item Code','Description','Machine','Location','Vendor','Qty','Min Qty','Status'],...db.inventory.map(i=>[i.itemCode,i.description,i.machineName,`Cupboard ${i.cupboard}, Rack ${i.rack}`,i.vendorName,i.quantity,i.minimumQty,statusOf(i)])]);
+  document.getElementById('expLeave').onclick=()=>exportCSV('leave-logs.csv',[['Employee Name','Leave Start','Leave End','Reason','Status'],...db.leaves.map(l=>[l.name,l.start,l.end,l.reason,l.status])]);
+  document.getElementById('expWork').onclick=()=>exportCSV('work-history.csv',[['Employee Name','Date','Hour','Job'],...db.workHistory.map(w=>[w.employee,w.date,w.hour,w.job])]);
+}
 
-      document.getElementById('inventoryBody').innerHTML = rows.map(i => {
-        const st = statusOf(i);
-        const percent = Math.max(5, Math.min(100, Number(i.quantity) / Math.max(1, Number(i.minimumQty)) * 40));
-        return `<tr><td>${i.itemCode}</td><td>${i.description}</td><td>${i.machineName}</td><td>${i.cupboard}-${i.rack}</td><td>${i.quantity}</td><td>${i.minimumQty}</td><td>${i.vendorName}</td><td><div class="stock ${st==='Low Stock'?'low':''}"><span style="width:${percent}%"></span></div></td><td class="${st==='Low Stock'?'status-low':'status-ok'}">${st}</td><td>${canUse?`<button class='btn secondary inline' data-use='${i.id}'>Use</button>`:'-'}</td></tr>`;
-      }).join('') || '<tr><td colspan="10">No materials found</td></tr>';
-
-      document.getElementById('pageInfo').textContent = `Page ${state.invPage} of ${pages}`;
-      document.querySelectorAll('[data-use]').forEach(b => b.onclick = () => openUsageModal(b.dataset.use));
-      refreshHighAuthorityMetrics();
-    }
-
-    function openUsageModal(id) {
-      const item = state.inventory.find(i => i.id === id);
-      if (!item) return;
-      document.getElementById('usageDetails').innerHTML = `<div class='grid-2'><div class='field'><label>Item Code</label><input readonly value='${item.itemCode}' /></div><div class='field'><label>Description</label><input readonly value='${item.description}' /></div><div class='field'><label>Machine Name</label><input readonly value='${item.machineName}' /></div><div class='field'><label>Location</label><input readonly value='${item.cupboard}-${item.rack}' /></div><div class='field'><label>Vendor Name</label><input readonly value='${item.vendorName}' /></div><div class='field'><label>Quantity</label><input readonly value='${item.quantity}' /></div><div class='field'><label>Operator Name</label><input id='opName' /></div><div class='field'><label>Purpose</label><textarea id='opPurpose'></textarea></div></div><div style='margin-top:12px'><button class='btn inline' id='submitUsage'>Submit Usage</button></div>`;
-      document.getElementById('usageModal').classList.add('open');
-      document.getElementById('submitUsage').onclick = () => {
-        const operator = document.getElementById('opName').value.trim();
-        const purpose = document.getElementById('opPurpose').value.trim();
-        if (!operator || !purpose) return alert('Operator name and purpose are required.');
-        state.usageLogs.unshift({ operator, itemCode: item.itemCode, date: new Date().toISOString(), purpose });
-        addNotification(`Inventory usage submitted: ${item.itemCode} by ${operator}.`);
-        document.getElementById('usageModal').classList.remove('open');
-        renderUsageLogs();
-      };
-    }
-
-    function renderUsageLogs() {
-      const date = document.getElementById('usageDate').value;
-      const rows = date ? state.usageLogs.filter(u => u.date.startsWith(date)) : state.usageLogs;
-      document.getElementById('usageLogsBody').innerHTML = rows.map(u => `<tr><td>${u.operator}</td><td>${u.itemCode}</td><td>${u.date.slice(0,16).replace('T',' ')}</td><td>${u.purpose}</td></tr>`).join('') || '<tr><td colspan="4">No usage logs</td></tr>';
-      refreshHighAuthorityMetrics();
-    }
-
-    function renderLeaves() {
-      document.getElementById('leaveBody').innerHTML = state.leaves.map(l => `<tr><td>${l.name}</td><td>${l.start}</td><td>${l.end}</td><td>${l.reason}</td><td class='${l.status==='Rejected'?'status-low':''}'>${l.status}</td><td><button class='btn secondary inline' data-appr='${l.id}'>Approve</button></td><td><button class='btn secondary inline' data-rej='${l.id}'>Reject</button></td></tr>`).join('') || '<tr><td colspan="7">No leave applications</td></tr>';
-      document.querySelectorAll('[data-appr]').forEach(b => b.onclick = () => updateLeave(b.dataset.appr, 'Approved'));
-      document.querySelectorAll('[data-rej]').forEach(b => b.onclick = () => updateLeave(b.dataset.rej, 'Rejected'));
-      refreshHighAuthorityMetrics();
-    }
-
-    function updateLeave(id, status) {
-      const leave = state.leaves.find(l => l.id === id);
-      if (!leave) return;
-      leave.status = status;
-      addNotification(`Leave ${status.toLowerCase()}: ${leave.name} (${leave.start} to ${leave.end}).`);
-      renderLeaves();
-    }
-
-    const todayKey = () => new Date().toISOString().slice(0,10);
-    function refillJobOptions() {
-      const jobs = state.jobsByDay[todayKey()] || [];
-      document.querySelectorAll('#workForm select').forEach(s => {
-        const cur = s.value;
-        s.innerHTML = '<option value="">Select job</option>' + jobs.map(j => `<option ${j===cur?'selected':''}>${j}</option>`).join('');
-      });
-    }
-
-    function renderWorkHistory() {
-      const emp = document.getElementById('workFilterEmployee').value.toLowerCase().trim();
-      const dt = document.getElementById('workFilterDate').value;
-      const rows = state.workRecords.filter(r => (!emp || r.employee.toLowerCase().includes(emp)) && (!dt || r.date === dt));
-      document.getElementById('workHistoryBody').innerHTML = rows.map(r => `<tr><td>${r.employee}</td><td>${r.date}</td><td>${r.hour}</td><td>${r.job}</td></tr>`).join('') || '<tr><td colspan="4">No history records</td></tr>';
-      refreshHighAuthorityMetrics();
-    }
-
-    function exportCSV(name, rows) {
-      const csv = rows.map(r => r.map(v => `"${String(v).replaceAll('"','""')}"`).join(',')).join('\n');
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
-      a.download = name;
-      a.click();
-    }
-
-    function refreshHighAuthorityMetrics() {
-      document.getElementById('haMaterials').textContent = state.inventory.length;
-      document.getElementById('haUsage').textContent = state.usageLogs.length;
-      document.getElementById('haLeaves').textContent = state.leaves.length;
-      document.getElementById('haWork').textContent = state.workRecords.length;
-    }
-
-    function applyAccessControl() {
-      const role = state.currentUser.role;
-      const isAdmin = role === 'admin';
-      const isManager = role === 'manager';
-      const isHA = role === 'highAuthority';
-      document.querySelector('#materialForm button').disabled = !isAdmin;
-      document.querySelectorAll('#materialForm input,#materialForm textarea').forEach(i => { if (i.name !== 'dateTime') i.disabled = !isAdmin; });
-      document.getElementById('usagePanel').classList.toggle('hidden', !(isManager || isHA));
-      document.getElementById('leaveApprovalWrap').classList.toggle('hidden', !(isAdmin || isHA));
-      document.getElementById('leaveApprovalHint').classList.toggle('hidden', isAdmin || isHA);
-      document.getElementById('haTabBtn').classList.toggle('hidden', !isHA);
-    }
-
-    function openTab(tab) {
-      document.querySelectorAll('.module').forEach(m => m.classList.add('hidden'));
-      document.getElementById(tab).classList.remove('hidden');
-      document.querySelectorAll('.nav-btn').forEach(n => n.classList.toggle('active', n.dataset.tab === tab));
-    }
-
-    function wire() {
-      document.getElementById('loginBtn').onclick = () => {
-        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-        const pass = document.getElementById('loginPassword').value;
-        const user = users[email];
-        if (!user || user.password !== pass) return alert('Invalid credentials.');
-        state.currentUser = { email, ...user };
-        document.getElementById('loginPage').classList.add('hidden');
-        document.getElementById('appPage').classList.remove('hidden');
-        document.getElementById('userName').textContent = user.name;
-        document.getElementById('userRole').textContent = user.designation;
-        document.getElementById('sidebarUser').innerHTML = `${user.name}<br>${user.designation}<br>${email}`;
-        applyAccessControl();
-        openTab('inventory');
-        renderInventory(); renderUsageLogs(); renderLeaves(); refillJobOptions(); renderWorkHistory(); renderNotifications();
-      };
-
-      document.getElementById('logoutBtn').onclick = () => location.reload();
-      document.querySelectorAll('.nav-btn').forEach(n => n.onclick = () => openTab(n.dataset.tab));
-
-      document.getElementById('materialForm').onsubmit = e => {
-        e.preventDefault();
-        if (state.currentUser.role !== 'admin') return;
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        state.inventory.unshift({ id: crypto.randomUUID(), ...data });
-        e.target.reset();
-        e.target.querySelector('[name="dateTime"]').value = nowISODateTime();
-        renderInventory();
-      };
-
-      ['invFilter','invSearch','invDate'].forEach(id => document.getElementById(id).addEventListener('input', () => { state.invPage = 1; renderInventory(); }));
-      document.getElementById('prevPage').onclick = () => { state.invPage = Math.max(1, state.invPage - 1); renderInventory(); };
-      document.getElementById('nextPage').onclick = () => { const pages = Math.max(1, Math.ceil(state.invFiltered.length / state.invPageSize)); state.invPage = Math.min(pages, state.invPage + 1); renderInventory(); };
-      document.getElementById('usageFilterBtn').onclick = renderUsageLogs;
-      document.getElementById('exportUsage').onclick = () => exportCSV('usage-logs.csv', [['Operator Name','Item Code','Date','Purpose'], ...state.usageLogs.map(u => [u.operator,u.itemCode,u.date,u.purpose])]);
-
-      document.getElementById('empForm').onsubmit = e => { e.preventDefault(); state.employees.push(Object.fromEntries(new FormData(e.target).entries())); e.target.reset(); };
-      document.getElementById('leaveForm').onsubmit = e => {
-        e.preventDefault();
-        const leave = { id: crypto.randomUUID(), ...Object.fromEntries(new FormData(e.target).entries()), status: 'Pending' };
-        state.leaves.unshift(leave);
-        addNotification(`Leave application submitted by ${leave.name} (${leave.start} to ${leave.end}).`);
-        e.target.reset();
-        renderLeaves();
-      };
-
-      document.getElementById('addJobBtn').onclick = () => {
-        const title = document.getElementById('jobTitle').value.trim();
-        if (!title) return;
-        const key = todayKey();
-        if (!state.jobsByDay[key]) state.jobsByDay[key] = [];
-        if (!state.jobsByDay[key].includes(title)) state.jobsByDay[key].push(title);
-        document.getElementById('jobTitle').value = '';
-        refillJobOptions();
-        addNotification(`New work assignment title created for ${key}: ${title}.`);
-      };
-
-      document.getElementById('workForm').onsubmit = e => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        for (let i = 1; i <= 8; i++) {
-          const h = `H${i}`;
-          if (data[h]) state.workRecords.unshift({ employee: data.employee, date: data.date, hour: h, job: data[h] });
-        }
-        renderWorkHistory();
-      };
-      document.getElementById('workFilterBtn').onclick = renderWorkHistory;
-
-      document.getElementById('openNotifications').onclick = () => { document.getElementById('notificationModal').classList.add('open'); renderNotifications(); };
-      document.getElementById('closeNotifModal').onclick = () => document.getElementById('notificationModal').classList.remove('open');
-      document.getElementById('notifFilterBtn').onclick = renderNotifications;
-      document.getElementById('markRead').onclick = () => {
-        const role = state.currentUser.role;
-        state.notifications.forEach(n => { if (n.roles.includes(role) && !n.readBy.includes(role)) n.readBy.push(role); });
-        renderNotifications();
-      };
-
-      document.getElementById('closeUsageModal').onclick = () => document.getElementById('usageModal').classList.remove('open');
-      document.getElementById('haExportInventory').onclick = () => exportCSV('inventory.csv', [['Item Code','Description','Machine','Location','Vendor','Qty','Min Qty','Status'], ...state.inventory.map(i => [i.itemCode,i.description,i.machineName,`${i.cupboard}-${i.rack}`,i.vendorName,i.quantity,i.minimumQty,statusOf(i)])]);
-      document.getElementById('haExportLeaves').onclick = () => exportCSV('leave-logs.csv', [['Employee Name','Start','End','Reason','Status'], ...state.leaves.map(l => [l.name,l.start,l.end,l.reason,l.status])]);
-      document.getElementById('haExportWork').onclick = () => exportCSV('work-history.csv', [['Employee Name','Date','Hour','Job'], ...state.workRecords.map(w => [w.employee,w.date,w.hour,w.job])]);
-    }
-
-    buildForms();
-    wire();
-  </script>
+buildForms();
+wire();
+</script>
 </body>
 </html>
